@@ -61,7 +61,16 @@ async function addLeadToSheet(leadData) {
 }
 
 // Function to get all leads from Google Sheets (for admin purposes)
-async function getAllLeads() {
+async function getAllLeads(adminSecret) {
+  // Check if admin secret is provided and valid
+  if (!adminSecret || adminSecret !== process.env.ADMIN_SECRET) {
+    throw {
+      code: 'UNAUTHORIZED',
+      message: 'Invalid admin secret provided',
+      status: 401
+    };
+  }
+  
   try {
     const auth = authenticateGoogleSheets();
     const sheets = google.sheets({ version: 'v4', auth });

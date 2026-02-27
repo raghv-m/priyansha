@@ -1,5 +1,16 @@
 const nodemailer = require('nodemailer');
 
+// Escape HTML to prevent XSS via user-supplied data in email templates
+function escapeHtml(str) {
+  if (typeof str !== 'string') return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 // Create transporter for sending emails
 function createTransporter() {
   // Check if we have SendGrid API key
@@ -37,25 +48,32 @@ async function sendNotificationEmail(leadData) {
   try {
     const transporter = createTransporter();
     
+    const safeName = escapeHtml(leadData.name);
+    const safeEmail = escapeHtml(leadData.email);
+    const safePhone = escapeHtml(leadData.phone);
+    const safeType = escapeHtml(leadData.type);
+    const safeMessage = escapeHtml(leadData.message || 'No message provided');
+    const safeDate = escapeHtml(leadData.submittedAt);
+
     // Email to business (notification)
     const businessEmail = {
       from: process.env.EMAIL_FROM || '"PrimeMortgage" <noreply@primemortgage.ca>',
-      to: process.env.BUSINESS_EMAIL || 'info@primemortgage.ca', // Business email
-      subject: `New Lead Submission: ${leadData.name}`,
+      to: process.env.BUSINESS_EMAIL || 'info@primemortgage.ca',
+      subject: `New Lead: ${safeName}`,
       html: `
         <h2>New Lead Received</h2>
-        <p><strong>Name:</strong> ${leadData.name}</p>
-        <p><strong>Email:</strong> ${leadData.email}</p>
-        <p><strong>Phone:</strong> ${leadData.phone}</p>
-        <p><strong>Type:</strong> ${leadData.type}</p>
-        <p><strong>Submitted At:</strong> ${leadData.submittedAt}</p>
+        <p><strong>Name:</strong> ${safeName}</p>
+        <p><strong>Email:</strong> ${safeEmail}</p>
+        <p><strong>Phone:</strong> ${safePhone}</p>
+        <p><strong>Type:</strong> ${safeType}</p>
+        <p><strong>Submitted At:</strong> ${safeDate}</p>
         <p><strong>Message:</strong></p>
-        <p>${leadData.message || 'No message provided'}</p>
+        <p>${safeMessage}</p>
         <hr>
         <p>This is an automated message from PrimeMortgage Lead System.</p>
       `
     };
-    
+
     // Email to customer (confirmation)
     const customerEmail = {
       from: process.env.EMAIL_FROM || '"PrimeMortgage" <noreply@primemortgage.ca>',
@@ -63,14 +81,14 @@ async function sendNotificationEmail(leadData) {
       subject: 'Thank You for Your Inquiry - PrimeMortgage',
       html: `
         <h2>Thank You for Your Inquiry!</h2>
-        <p>Hello ${leadData.name},</p>
+        <p>Hello ${safeName},</p>
         <p>Thank you for contacting PrimeMortgage. We have received your inquiry and will get back to you as soon as possible.</p>
         <p>We typically respond within 24 hours during business days.</p>
         <p><strong>Your Details:</strong></p>
-        <p>Name: ${leadData.name}</p>
-        <p>Email: ${leadData.email}</p>
-        <p>Phone: ${leadData.phone}</p>
-        <p>Message: ${leadData.message || 'No message provided'}</p>
+        <p>Name: ${safeName}</p>
+        <p>Email: ${safeEmail}</p>
+        <p>Phone: ${safePhone}</p>
+        <p>Message: ${safeMessage}</p>
         <p>If you have any urgent questions, please feel free to call us at (416) 555-0123.</p>
         <br>
         <p>Best regards,<br>The PrimeMortgage Team</p>

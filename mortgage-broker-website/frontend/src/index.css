@@ -1,31 +1,163 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+@theme {
+  --color-primary-50: #eef7ff;
+  --color-primary-100: #dbeeff;
+  --color-primary-200: #bcdfff;
+  --color-primary-300: #8cc5f8;
+  --color-primary-400: #5aaaf2;
+  --color-primary-500: #3392ec;
+  --color-primary-600: #1d72d6;
+  --color-primary-700: #1557ad;
+  --color-primary-800: #0F2044;
+  --color-primary-900: #0a1628;
+
+  --color-secondary-50: #fefdf9;
+  --color-secondary-100: #fdfbf2;
+  --color-secondary-200: #fbf7e6;
+  --color-secondary-300: #f8f1d4;
+  --color-secondary-400: #f3e9be;
+  --color-secondary-500: #eade9e;
+  --color-secondary-600: #d4c37e;
+  --color-secondary-700: #C9973A;
+  --color-secondary-800: #a87a2a;
+  --color-secondary-900: #7a581e;
+
+  --color-neutral-50: #fafaf9;
+  --color-neutral-100: #f5f5f4;
+  --color-neutral-200: #e7e5e4;
+  --color-neutral-300: #d6d3d1;
+  --color-neutral-400: #a8a29e;
+  --color-neutral-500: #78716c;
+  --color-neutral-600: #57534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #292524;
+  --color-neutral-900: #1c1917;
+
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Base ── */
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  * { box-sizing: border-box; }
+
+  /* Range input styling — makes sliders look good cross-browser */
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 9999px;
+    background: #bcdfff;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0F2044;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  input[type='range']::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0F2044;
+    cursor: pointer;
+    border: 2px solid white;
   }
 }
 
+/* ── Components ── */
 @layer components {
+
+  /* Buttons */
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300 ease-in-out;
+    @apply bg-primary-800 hover:bg-primary-900 text-white font-semibold py-3 px-7 rounded-lg transition-all duration-200 shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 inline-flex items-center justify-center;
   }
-  
+  .btn-gold {
+    @apply bg-secondary-700 hover:bg-secondary-800 text-white font-semibold py-3 px-7 rounded-lg transition-all duration-200 shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-secondary-600 focus:ring-offset-2 inline-flex items-center justify-center;
+  }
+  .btn-outline {
+    @apply bg-transparent hover:bg-white/10 text-white font-semibold py-3 px-7 rounded-lg border-2 border-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 inline-flex items-center justify-center;
+  }
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded-lg transition duration-300 ease-in-out;
+    @apply bg-white hover:bg-neutral-50 text-neutral-800 font-semibold py-3 px-7 rounded-lg border border-neutral-200 transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:ring-offset-2 inline-flex items-center justify-center;
   }
-  
-  .card {
-    @apply bg-white rounded-xl shadow-md p-6 border border-gray-100;
+
+  /* Layout */
+  .section { @apply py-16 md:py-24; }
+  .container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+  /* Cards */
+  .card { @apply bg-white rounded-2xl shadow-sm p-6 border border-neutral-100; }
+
+  /* Typography */
+  .section-label { @apply font-semibold text-sm uppercase tracking-widest mb-3 block; color: #C9973A; }
+  .section-title { @apply text-3xl md:text-4xl font-bold leading-tight; color: #0F2044; }
+  .section-subtitle { @apply text-gray-500 text-lg mt-3 leading-relaxed; }
+
+  /* ── Scroll Animations ──
+     Plain CSS transitions — NOT @apply transition-* chains,
+     because Tailwind only keeps the last @apply transition-* directive.
+     Writing them as plain CSS properties works correctly in all cases. */
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
-  
-  .section {
-    @apply py-16 md:py-24;
+  .slide-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
-  
-  .container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  .slide-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.7s ease-out;
+  }
+  .scale-up {
+    opacity: 0;
+    transform: scale(0.93);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+
+  /* Visible state */
+  .fade-up.visible,
+  .slide-left.visible,
+  .slide-right.visible,
+  .scale-up.visible { opacity: 1; transform: none; }
+  .fade-in.visible  { opacity: 1; }
+
+  /* Stagger delays */
+  .stagger-1 { transition-delay: 0ms;   }
+  .stagger-2 { transition-delay: 130ms; }
+  .stagger-3 { transition-delay: 260ms; }
+  .stagger-4 { transition-delay: 390ms; }
+  .stagger-5 { transition-delay: 520ms; }
+  .stagger-6 { transition-delay: 650ms; }
+
+  /* Accessibility — skip all motion */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up, .slide-left, .slide-right, .fade-in, .scale-up {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
   }
 }

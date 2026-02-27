@@ -1,6 +1,12 @@
-const FormInput = ({ 
+const sanitizeInput = (value) => {
+  // Remove any script tags and trim whitespace
+  return value.replace(/<script[^>]*>.*?<\/script>/gi, '').trim();
+};
+
+const FormInput = ({
   label, 
   id, 
+  name,
   type = 'text', 
   placeholder, 
   value, 
@@ -9,6 +15,20 @@ const FormInput = ({
   required = false,
   ...props 
 }) => {
+  const handleChange = (e) => {
+    const sanitizedValue = sanitizeInput(e.target.value);
+    // Create a new event with the sanitized value
+    const sanitizedEvent = {
+      ...e,
+      target: {
+        ...e.target,
+        value: sanitizedValue,
+        name: e.target.name
+      }
+    };
+    onChange(sanitizedEvent);
+  };
+  
   return (
     <div className="mb-4">
       {label && (
@@ -18,12 +38,13 @@ const FormInput = ({
       )}
       <input
         id={id}
+        name={name}
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         required={required}
-        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ${
           error ? 'border-red-500' : 'border-gray-300'
         }`}
         {...props}

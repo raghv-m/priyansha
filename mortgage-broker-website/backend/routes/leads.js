@@ -2,6 +2,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { addLeadToSheet } = require('../utils/googleSheets');
 const { sendNotificationEmail } = require('../utils/emailService');
+const { randomUUID } = require('crypto');
 
 const router = express.Router();
 
@@ -62,7 +63,7 @@ router.post('/leads', validateLead, async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Lead submitted successfully',
-      leadId: Date.now() // Simple ID generation for demo purposes
+      leadId: randomUUID()
     });
 
   } catch (error) {

@@ -1,103 +1,176 @@
+import { Link } from 'react-router-dom';
 import Card from '../components/UI/Card';
 import Button from '../components/UI/Button';
+import useScrollAnimation from '../hooks/useScrollAnimation';
+
+const NAVY = '#0F2044';
+const GOLD = '#C9973A';
 
 const About = () => {
+  useScrollAnimation();
+
+  const values = [
+    { id: 'integrity', title: 'Integrity', description: 'Honest, transparent advice with no hidden fees or surprises.' },
+    { id: 'excellence', title: 'Excellence', description: 'Dedication to providing the highest level of service in the industry.' },
+    { id: 'personal', title: 'Personal Service', description: 'One-on-one attention tailored to your unique financial situation.' },
+    { id: 'results', title: 'Results', description: 'Focused on getting you the best outcome and most favourable terms.' },
+  ];
+
+  const credentials = [
+    {
+      title: 'FSRA Licensed',
+      desc: 'Regulated by the Financial Services Regulatory Authority of Ontario',
+      note: 'License #: [YOUR LICENSE]',
+      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
+    },
+    {
+      title: 'Education',
+      desc: "Bachelor's in Finance & Certified Mortgage Professional",
+      note: 'Continuing Education Credits Maintained',
+      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
+    },
+    {
+      title: 'Experience',
+      desc: 'Over 10 years helping Canadians secure the right mortgage',
+      note: '500+ Successful Applications',
+      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+    },
+    {
+      title: 'Top Rated',
+      desc: 'Consistently rated among the best brokers in the GTA',
+      note: '4.9/5 Stars · 200+ Reviews',
+      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>,
+    },
+  ];
+
   return (
-    <div className="section">
-      <div className="container">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">About PrimeMortgage</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Your trusted partner in achieving homeownership dreams since 2008
+    <div>
+      {/* Hero */}
+      <section className="py-20 text-white" style={{ background: 'linear-gradient(135deg, #0a1628 0%, #0F2044 100%)' }}>
+        <div className="container text-center">
+          <span className="inline-block text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 border"
+                style={{ borderColor: 'rgba(201,151,58,0.4)', color: GOLD, background: 'rgba(201,151,58,0.08)' }}>
+            About Us
+          </span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 fade-up">About Our Brokerage</h1>
+          <p className="text-lg max-w-2xl mx-auto fade-up stagger-2" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            Learn about our commitment to helping Canadians achieve their homeownership goals
           </p>
         </div>
+      </section>
 
-        {/* Company Story */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Story</h2>
-            <p className="text-gray-600 mb-4">
-              Founded in 2008, PrimeMortgage has helped thousands of families achieve their dream of homeownership. 
-              Our journey began with a simple mission: to make the mortgage process transparent, accessible, and stress-free.
-            </p>
-            <p className="text-gray-600 mb-6">
-              Over the years, we've grown into one of the most trusted mortgage brokerage firms in the region, 
-              consistently delivering personalized service and competitive rates to our clients.
-            </p>
-            <Button variant="primary" size="lg">
-              Meet Our Team
-            </Button>
-          </div>
-          <div>
-            <img 
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-              alt="Team of mortgage professionals discussing with client" 
-              className="rounded-xl shadow-lg w-full"
-            />
-          </div>
-        </div>
-
-        {/* Values Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Our Core Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
-              <div className="text-blue-600 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Trust & Integrity</h3>
-              <p className="text-gray-600">
-                We believe in transparent communication and honest advice that puts our clients' interests first.
+      {/* Bio */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="slide-left">
+              <img
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="Priyansha, Licensed Mortgage Broker"
+                className="rounded-2xl shadow-xl w-full"
+                style={{ outline: '4px solid #eef7ff', outlineOffset: '4px' }}
+              />
+            </div>
+            <div className="slide-right">
+              <span className="section-label">Meet Your Broker</span>
+              <h2 className="text-3xl font-bold mb-4" style={{ color: NAVY }}>Priyansha Sharma</h2>
+              <p className="text-gray-600 text-lg mb-5 leading-relaxed">
+                As a licensed mortgage broker with over 10 years of experience, I'm committed to providing
+                personalized service and finding the best mortgage solutions for my clients.
               </p>
-            </Card>
-            
-            <Card>
-              <div className="text-blue-600 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Excellence</h3>
-              <p className="text-gray-600">
-                We strive for excellence in every interaction, ensuring the highest quality service for our clients.
+              <p className="text-gray-500 mb-8 leading-relaxed">
+                After seeing friends and family struggle with the mortgage process and overpay on rates, I
+                became a broker myself. My mission is to make the process simple, transparent, and stress-free
+                for every Canadian.
               </p>
-            </Card>
-            
-            <Card>
-              <div className="text-blue-600 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+              <div className="flex flex-wrap gap-2 mb-8">
+                {['FSRA Licensed', '10+ Years Experience', '50+ Lender Partners', 'Same-Day Pre-Approval'].map((badge) => (
+                  <span key={badge}
+                        className="text-sm font-medium px-3 py-1.5 rounded-full border"
+                        style={{ background: '#eef7ff', color: NAVY, borderColor: '#bcdfff' }}>
+                    {badge}
+                  </span>
+                ))}
               </div>
-              <h3 className="text-xl font-semibold mb-2">Client Focus</h3>
-              <p className="text-gray-600">
-                Every decision we make is centered around our clients' goals and financial well-being.
-              </p>
-            </Card>
+              <div className="flex gap-3 flex-wrap">
+                <Button as={Link} to="/contact" variant="primary" size="lg">Contact Me</Button>
+                <Button as={Link} to="/calculator" variant="outline" size="lg">Calculate Rates</Button>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Team Section */}
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Meet Our Leadership Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="text-center">
-                <img 
-                  src={`https://images.unsplash.com/photo-${item === 1 ? '1472230202739-08968530e6db' : item === 2 ? '1507068137421-fd45c358072f' : item === 3 ? '1485020155023-72788407c533' : '1511714860296-4df0f0a16188'}?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80`} 
-                  alt="Team member" 
-                  className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-                />
-                <h3 className="text-lg font-semibold text-gray-900">Sarah Johnson</h3>
-                <p className="text-blue-600">CEO & Founder</p>
+      {/* Credentials */}
+      <section className="py-20" style={{ background: '#f8fafc' }}>
+        <div className="container">
+          <div className="text-center mb-14 fade-up">
+            <span className="section-label">Credentials</span>
+            <h2 className="section-title">Professional Qualifications</h2>
+            <p className="section-subtitle max-w-2xl mx-auto">
+              Licensed and regulated by the Financial Services Regulatory Authority of Ontario
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {credentials.map((c, i) => (
+              <div key={c.title}
+                   className={`fade-up stagger-${i + 1} bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-5`}>
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+                     style={{ background: '#eef7ff', color: NAVY }}>
+                  {c.icon}
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-1">{c.title}</h3>
+                  <p className="text-gray-500 text-sm mb-1">{c.desc}</p>
+                  <p className="text-xs font-medium" style={{ color: GOLD }}>{c.note}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Values */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <div className="text-center mb-14 fade-up">
+            <span className="section-label">Our Values</span>
+            <h2 className="section-title">What We Stand For</h2>
+            <p className="section-subtitle max-w-2xl mx-auto">
+              The principles that guide how we serve our clients
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value, i) => (
+              <div key={value.id}
+                   className={`fade-up stagger-${i + 1} p-6 rounded-2xl border border-gray-100 hover:shadow-md transition-shadow duration-300`}>
+                <div className="w-10 h-10 rounded-full mb-4 flex items-center justify-center"
+                     style={{ background: 'rgba(201,151,58,0.12)' }}>
+                  <div className="w-4 h-4 rounded-full" style={{ background: GOLD }} />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">{value.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 text-white" style={{ background: NAVY }}>
+        <div className="container text-center">
+          <h2 className="text-3xl font-bold mb-4 text-white fade-up">Ready to Get Started?</h2>
+          <p className="max-w-2xl mx-auto mb-8 fade-up stagger-2" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            Contact us today for a free consultation and let's find the right mortgage for you.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 fade-up stagger-3">
+            <Button as={Link} to="/contact" variant="white" size="lg">Contact Us</Button>
+            <Button as={Link} to="/calculator" variant="outline-white" size="lg">Calculate Rates</Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
