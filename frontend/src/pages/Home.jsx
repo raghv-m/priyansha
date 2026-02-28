@@ -89,9 +89,9 @@ const Home = () => {
   ];
 
   const testimonials = [
-    { id: 1, name: 'Michael T.', location: 'Toronto', text: 'Priyansha helped us secure a great rate in just 3 days. Her personal approach made all the difference.' },
-    { id: 2, name: 'Sarah K.', location: 'Mississauga', text: 'Finally, a broker who explains everything in plain English. No jargon, no runaround. Highly recommend.' },
-    { id: 3, name: 'David L.', location: 'Oakville', text: "I was worried about my credit, but Priyansha found options I didn't think were possible. She delivered." },
+    { id: 1, name: 'Michael T.', location: 'Edmonton', text: 'Priyansha helped us secure a great rate in just 3 days. Her personal approach made all the difference.' },
+    { id: 2, name: 'Sarah K.', location: 'Edmonton', text: 'Finally, a broker who explains everything in plain English. No jargon, no runaround. Highly recommend.' },
+    { id: 3, name: 'David L.', location: 'Edmonton', text: "I was worried about my credit, but Priyansha found options I didn't think were possible. She delivered." },
   ];
 
   return (
@@ -117,7 +117,7 @@ const Home = () => {
             <div className="md:w-1/2 text-white">
               <span className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 border uppercase tracking-widest"
                     style={{ borderColor: 'rgba(201,151,58,0.4)', color: GOLD, background: 'rgba(201,151,58,0.08)' }}>
-                Licensed Mortgage Broker · Toronto, ON
+                Licensed Mortgage Broker · Edmonton, ON
               </span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 tracking-tight text-white">
